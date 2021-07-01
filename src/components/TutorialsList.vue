@@ -74,7 +74,8 @@ export default {
     retrieveTutorials() {
       TutorialDataService.getAll()
         .then(response => {
-          this.tutorials = response.data;
+          //console.log(response);
+          this.tutorials = response.data.body;
           console.log(response.data);
         })
         .catch(e => {

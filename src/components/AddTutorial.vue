@@ -52,14 +52,14 @@ export default {
   },
   methods: {
     saveTutorial() {
-      var data = {
+      const data = {
         title: this.tutorial.title,
         description: this.tutorial.description
       };
 
       TutorialDataService.create(data)
         .then(response => {
-          this.tutorial.id = response.data.id;
+          //this.tutorial.id = response.data.id;
           console.log(response.data);
           this.submitted = true;
         })

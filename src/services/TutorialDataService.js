@@ -10,24 +10,25 @@ class TutorialDataService {
   }
 
   create(data) {
+    console.log(data);
     return http.post("/create.php", data);
   }
 
   update(id, data) {
-    return http.put(`/update.php?id=${id}`, data);
+    return http.put(`/update.php`, data);
   }
 
   delete(id) {
-    return http.delete(`/delete.php?id=${id}`);
+    return http.delete(`/delete.php`,{id});
   }
 
-  deleteAll() {
-    return http.delete(`/tutorials`);
-  }
+  //deleteAll() {
+  //  return http.delete(`/tutorials`);
+  //}
 
-  findByTitle(title) {
-    return http.get(`/tutorials?title=${title}`);
-  }
+  //findByTitle(title) {
+   // return http.get(`/tutorials?title=${title}`);
+ // }
 }
 
 export default new TutorialDataService();
