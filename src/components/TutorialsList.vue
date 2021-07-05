@@ -23,15 +23,19 @@
           @click="setActiveTutorial(tutorial, index)"
         >
           {{ tutorial.title }}
+           <button class="m-3 btn btn-sm btn-danger" @click="deleteTutorial(tutorial.id)">
+        Delete
+      </button> 
+       <button class="m-3 btn btn-sm btn-danger" @click="updateTutorial(tutorial.id)">
+        Update
+      </button> 
         </li>
       </ul>
 
       <button class="m-3 btn btn-sm btn-danger" @click="removeAllTutorials">
         Remove All 
       </button> 
-       <button class="m-3 btn btn-sm btn-danger" @click="deleteTutorial">
-        Delete 
-      </button>
+       
 
 
 
@@ -76,6 +80,9 @@ export default {
       title: ""
     };
   },
+  mounted(){
+    this.retrieveTutorials();
+  },
   methods: {
     retrieveTutorials() {
       TutorialDataService.getAll()
@@ -102,8 +109,7 @@ export default {
 
     removeAllTutorials() {
       TutorialDataService.deleteAll()
-        .then(response => {
-          console.log(response.data);
+        .then(() => {
           this.refreshList();
         })
         .catch(e => {
@@ -121,21 +127,35 @@ export default {
           console.log(e);
         });
     },
-  deleteTutorial() {
-      TutorialDataService.delete(this.title)
+   deleteTutorial(id) {
+     const isSure = confirm("Are you sure?");
+     if(isSure){
+      TutorialDataService.delete(id)
         .then(response => {
-          this.tutorials = response.data;
-          console.log(response.data);
+          if(response){
+            this.refreshList();
+          }
+          //this.tutorials = response.data;
+          //console.log(response.data);
         })
         .catch(e => {
           console.log(e);
         });
-  }  
+     } else{
+       console.log("unsure to delete");
+     }
+  }, 
+ // },
+ // mounted() {
+ //   this.retrieveTutorials();
+ // }
+//};
+ updateTutorial(id) {
+    this.$router.push(`/edit/${id}`);
+  }, 
   },
-  mounted() {
-    this.retrieveTutorials();
-  }
 };
+
 </script>
 
 <style>

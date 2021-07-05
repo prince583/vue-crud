@@ -9,17 +9,18 @@ class TutorialDataService {
     return http.get(`/single_read.php?id=${id}`);
   }
 
-  create(data) {
-    console.log(data);
-    return http.post("/create.php", data);
+  create(params) {
+    console.log(params);
+    return http.post("/create.php", params);
   }
 
-  update(id, data) {
-    return http.put(`/update.php`, data);
+  update(params) {
+    return http.put(`/update.php`, params);
   }
 
   delete(id) {
-    return http.delete(`/delete.php`,{id});
+    //console.log(id); return;
+    return http.delete(`/delete.php`,{data:{id}});
   }
 
   //deleteAll() {

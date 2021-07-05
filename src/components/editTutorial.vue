@@ -28,8 +28,8 @@
     </div>
 
     <div v-else>
-      <h4>You submitted successfully!</h4>
-      <button class="btn btn-success" @click="newTutorial">Add</button>
+      <h4>You updated  successfully!</h4>
+      
        
 
     </div>
@@ -52,15 +52,25 @@ export default {
       submitted: false
     };
   },
+created(){
+    console.log(this.$route);
+    const id = this.$route.params.id;
+    if(id){
+        this.getTutorial(id);
+    }else{
+        this.$router.push("/");
+    }
 
+},
   methods: {
     saveTutorial() {
       const data = {
+          id:this.tutorial.id,
         title: this.tutorial.title,
         description: this.tutorial.description
       };
 
-      TutorialDataService.create(data)
+      TutorialDataService.update(data)
         .then(response => {
           //this.tutorial.id = response.data.id;
           console.log(response.data);
@@ -70,11 +80,23 @@ export default {
           console.log(e);
         });
     },
+     getTutorial(id){
+          TutorialDataService.get(id)
+        .then(response => {
+          this.tutorial = response.data;
+          console.log(response.data);
+          //this.submitted = true;
+        })
+        .catch(e => {
+          console.log(e);
+        });
+
+     }
     
-    newTutorial() {
-      this.submitted = false;
-      this.tutorial = {};
-    }
+    //newTutorial() {
+    //  this.submitted = false;
+    //  this.tutorial = {};
+   // }
   }
 };
 </script>
