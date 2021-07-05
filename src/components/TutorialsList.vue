@@ -27,8 +27,14 @@
       </ul>
 
       <button class="m-3 btn btn-sm btn-danger" @click="removeAllTutorials">
-        Remove All
+        Remove All 
+      </button> 
+       <button class="m-3 btn btn-sm btn-danger" @click="deleteTutorial">
+        Delete 
       </button>
+
+
+
     </div>
     <div class="col-md-6">
       <div v-if="currentTutorial">
@@ -114,7 +120,17 @@ export default {
         .catch(e => {
           console.log(e);
         });
-    }
+    },
+  deleteTutorial() {
+      TutorialDataService.delete(this.title)
+        .then(response => {
+          this.tutorials = response.data;
+          console.log(response.data);
+        })
+        .catch(e => {
+          console.log(e);
+        });
+  }  
   },
   mounted() {
     this.retrieveTutorials();

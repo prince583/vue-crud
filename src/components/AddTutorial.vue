@@ -30,6 +30,8 @@
     <div v-else>
       <h4>You submitted successfully!</h4>
       <button class="btn btn-success" @click="newTutorial">Add</button>
+       
+
     </div>
   </div>
 </template>
